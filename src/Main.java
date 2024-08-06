@@ -10,57 +10,63 @@ public class Main {
 
     public static void main(String[] args) {
         int n;
-
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Nhap vao so luong sv:");
-        n = scanner.nextInt();
+
+        // Loop until a valid number of students is entered
+        do {
+            System.out.println("Enter the number of students:");
+            n = scanner.nextInt();
+            if (n == 0) {
+                System.out.println("The number of students cannot be 0. Please enter a valid number.");
+            }
+        } while (n == 0);
 
         for (int i = 1; i <= n; i++) {
             input();
         }
-        System.out.println("IN DANH SACH SV:");
+        System.out.println("PRINT STUDENT LIST:");
         output();
 
         Scanner sc = new Scanner(System.in);
-        System.out.println("Nhap vao ma sv can xoa:");
+        System.out.println("Enter the student code you want to delete:");
         String codeToRemove = sc.nextLine();
         removeByCode(codeToRemove);
-        System.out.println("Danh sach sv sau khi xoa:");
+        System.out.println("List of students after deletion:");
         output();
 
         sortByGradeDesc();
-        System.out.println("Danh sach sv sau khi sap xep giam dan theo diem:");
+        System.out.println("List of students after being sorted by score:");
         output();
 
-        System.out.println("Nhap vao ma sv hoac ten sv can tim:");
+        System.out.println("Enter the student code or name you want to find:");
         String keyword = sc.nextLine();
         Student foundStudent = findByCodeOrName(keyword);
         if (foundStudent != null) {
-            System.out.println("Tim thay sinh vien: " + foundStudent);
+            System.out.println("Student found: " + foundStudent);
         } else {
-            System.out.println("Khong tim thay sinh vien.");
+            System.out.println("No students found.");
         }
 
-        System.out.println("Nhap vao diem can tim kiem (>= x):");
+        System.out.println("Enter the student score you want to search for (>= x):");
         float x = sc.nextFloat();
         List<Student> filteredStudents = filterByGrade(x);
-        System.out.println("Danh sach sinh vien co diem >= " + x + ":");
+        System.out.println("List of students with score >= " + x + ":");
         for (Student student : filteredStudents) {
             System.out.println(student);
         }
     }
 
-    // Nhap moi 1 sinh vien
+    // Nhap vao thong tin sinh vien
     public static void input() {
-        System.out.println("Nhap vao thong tin sinh vien:");
+        System.out.println("Enter student information:");
 
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Nhap ma sv:");
+        System.out.println("Enter student code:");
         String code = scanner.nextLine();
-        System.out.println("Nhap ten sv:");
+        System.out.println("Enter student name:");
         String name = scanner.nextLine();
-        System.out.println("Nhap diem:");
+        System.out.println("Enter score:");
         float grade = scanner.nextFloat();
         Student student = new Student(code, name, grade);
         studentList.add(student);
